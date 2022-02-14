@@ -43,4 +43,14 @@ class AuthController extends BaseController
 
         return $this->sendResponse($success, 'User created successfully.');
     }
+
+
+    public function Signoff(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Token eliminado correctamente',
+        ], 200);
+    }
 }

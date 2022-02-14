@@ -27,4 +27,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::resource('productos', ProductosController::class);
     Route::post('productos/search', [ProductosController::class, 'search']);
+    Route::post('Signoff',  [AuthController::class, 'Signoff']);
 });
