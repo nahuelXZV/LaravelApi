@@ -44,7 +44,7 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($exception instanceof RouteNotFoundException) {
-            return response()->json(["res" => false, "error" => "No tiene permisos para
+            return response()->json(["success" => false, "message" => "No tiene permisos para
              acceder a esta ruta"], 401);
         }
         return parent::render($request, $exception);

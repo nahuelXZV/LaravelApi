@@ -28,7 +28,6 @@ class AuthController extends BaseController
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required',
-            'confirm_password' => 'required|same:password',
         ]);
 
         if ($validator->fails()) {
@@ -39,15 +38,19 @@ class AuthController extends BaseController
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
         $success['token'] =  $user->createToken('MyAuthApp')->plainTextToken;
+        $success['email'] =  $user->email;
         $success['name'] =  $user->name;
 
         return $this->sendResponse($success, 'User created successfully.');
     }
 
 
-    public function Signoff(Request $request)
+    public function signoff(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        //$user = User::find($request->id)->get();
+        $authUser = Auth::user();
+        $authUser->currentAccessToken()->delete();
+        //$request->user()->currentAccessToken()->delete();
         return response()->json([
             'success' => true,
             'message' => 'Token eliminado correctamente',
